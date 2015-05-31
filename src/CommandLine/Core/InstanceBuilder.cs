@@ -80,12 +80,12 @@ namespace CommandLine.Core
                     sp => sp.Value.FromJust())
                 .SetProperties(specPropsWithValue,
                     sp => sp.Value.IsNothing() && sp.Specification.DefaultValue.IsJust(),
-                    sp => sp.Specification.DefaultValue.FromJust())
-                .SetProperties(specPropsWithValue,
-                    sp => sp.Value.IsNothing()
-                        && sp.Specification.ConversionType.ToDescriptor() == DescriptorType.Sequence
-                        && sp.Specification.DefaultValue.MatchNothing(),
-                    sp => sp.Property.PropertyType.GetGenericArguments().Single().CreateEmptyArray());
+                    sp => sp.Specification.DefaultValue.FromJust());
+                //.SetProperties(specPropsWithValue,
+                //    sp => sp.Value.IsNothing()
+                //        && sp.Specification.ConversionType.ToDescriptor() == DescriptorType.Sequence
+                //        && sp.Specification.DefaultValue.MatchNothing(),
+                //    sp => sp.Property.PropertyType.GetGenericArguments().Single().CreateEmptyArray());
 
             var validationErrors = specPropsWithValue.Validate(SpecificationPropertyRules.Lookup)
                 .OfType<Just<Error>>().Select(e => e.Value);

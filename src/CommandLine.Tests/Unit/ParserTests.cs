@@ -247,5 +247,19 @@ namespace CommandLine.Tests.Unit
             Assert.False(result.Errors.Any());
             // Teardown
         }
+
+        [Fact]
+        public void Parse_allow_null_default_value()
+        {
+            // Fixture setup
+            var sut = new Parser();
+
+            // Exercize system
+            var result = sut.ParseArguments<FakeOptionsWithNullDefault>(new string[0]);
+
+            // Verify outcome
+            Assert.Null(result.Value.IntSequence);
+            // Teardown
+        }
     }
 }

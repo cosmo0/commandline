@@ -153,15 +153,7 @@ namespace CommandLine
         public object DefaultValue
         {
             get { return this.defaultValue; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
-
-                this.defaultValue = value;
-            }
+            set { this.defaultValue = value; }
         }
 
         /// <summary>
