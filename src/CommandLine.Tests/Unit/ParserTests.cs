@@ -89,7 +89,7 @@ namespace CommandLine.Tests.Unit
             var sut = new Parser();
 
             // Exercize system
-            var result = sut.ParseArguments<FakeOptions>(new[] { "--stringvalue", "strvalue", "--intsequence", "1", "2", "3" });
+            var result = sut.ParseArguments<FakeOptions>(new[] { "--stringvalue", "strvalue", "-i", "1", "2", "3" });
 
             // Verify outcome
             result.Value.ShouldHave().AllProperties().EqualTo(expectedOptions);
