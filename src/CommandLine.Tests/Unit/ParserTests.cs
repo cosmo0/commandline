@@ -227,5 +227,25 @@ namespace CommandLine.Tests.Unit
             Assert.False(result.Errors.Any());
             // Teardown
         }
+
+        [Fact]
+        public void Parse_nullable_options()
+        {
+            // Fixture setup
+            var expectedOptions = new FakeOptionsWithNullable
+            {
+                NullableIntValue = 60,
+                NullableColorsValue = Colors.Red
+            };
+            var sut = new Parser();
+
+            // Exercize system
+            var result = sut.ParseArguments<FakeOptionsWithNullable>(new[] { "-n", "60", "-c", "Red" });
+
+            // Verify outcome
+            result.Value.ShouldHave().AllProperties().EqualTo(expectedOptions);
+            Assert.False(result.Errors.Any());
+            // Teardown
+        }
     }
 }

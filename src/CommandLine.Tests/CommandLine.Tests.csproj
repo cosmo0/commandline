@@ -58,6 +58,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Fakes\FakeOptionsWithNullable.cs" />
     <Compile Include="Fakes\FakeOptionsWithTwoIntegers.cs" />
     <Compile Include="Fakes\FakeInterfaceOptions.cs" />
     <Compile Include="Fakes\FakeOptionsWithHelpTextEnum.cs" />
