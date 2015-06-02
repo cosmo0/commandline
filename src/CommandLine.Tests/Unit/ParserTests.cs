@@ -261,5 +261,20 @@ namespace CommandLine.Tests.Unit
             Assert.Null(result.Value.IntSequence);
             // Teardown
         }
+
+        [Fact]
+        public void Parse_allow_min_equal_zero()
+        {
+            // Fixture setup
+            var sut = new Parser();
+
+            // Exercize system
+            var result = sut.ParseArguments<FakeOptionsWithSequenceWithMinZero>(new[] { "-i" });
+
+            // Verify outcome
+            Assert.NotNull(result.Value.IntSequence);
+            Assert.Empty(result.Value.IntSequence);
+            // Teardown
+        }
     }
 }

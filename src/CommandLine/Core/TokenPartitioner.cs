@@ -64,7 +64,7 @@ namespace CommandLine.Core
             Func<string, Maybe<Tuple<DescriptorType, Maybe<int>>>> typeLookup)
         {
             return from tseq in tokens.Pairwise(
-                (f, s) =>     
+                (f, s) =>
                         f.IsName() && s.IsValue()
                             ? typeLookup(f.Text).Return(info =>
                                    info.Item1 == DescriptorType.Sequence
