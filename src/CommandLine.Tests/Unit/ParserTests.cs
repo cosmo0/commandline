@@ -305,5 +305,19 @@ namespace CommandLine.Tests.Unit
             Assert.Empty(result.Value.IntSequence);
             // Teardown
         }
+
+        [Fact]
+        public void Parse_allow_set_option_with_non_set()
+        {
+            // Fixture setup
+            var sut = new Parser();
+
+            // Exercize system
+            var result = sut.ParseArguments<FakeOptionsWithSetAndNonSet>(new[] { "-s", "-n" });
+
+            // Verify outcome
+            Assert.Empty(result.Errors);
+            // Teardown
+        }
     }
 }
