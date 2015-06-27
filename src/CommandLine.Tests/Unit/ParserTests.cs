@@ -243,8 +243,8 @@ namespace CommandLine.Tests.Unit
             var result = sut.ParseArguments<FakeOptionsWithNullable>(new[] { "-n", "60", "-c", "Red" });
 
             // Verify outcome
+            Assert.Empty(result.Errors);
             result.Value.ShouldHave().AllProperties().EqualTo(expectedOptions);
-            Assert.False(result.Errors.Any());
             // Teardown
         }
 
@@ -260,6 +260,25 @@ namespace CommandLine.Tests.Unit
             // Verify outcome
             Assert.NotNull(result.Value.IntSequence);
             Assert.Empty(result.Value.IntSequence);
+            // Teardown
+        }
+
+        [Fact]
+        public void Parse_check_nonempty_sequence()
+        {
+            // Fixture setup
+            var expectedOptions = new FakeOptionsWithSequence
+            {
+                IntSequence = new[] { 60, 120 }
+            };
+            var sut = new Parser();
+
+            // Exercize system
+            var result = sut.ParseArguments<FakeOptionsWithSequence>(new[] { "-i", "60", "120" });
+
+            // Verify outcome
+            Assert.Empty(result.Errors);
+            result.Value.ShouldHave().AllProperties().EqualTo(expectedOptions);
             // Teardown
         }
 

@@ -65,7 +65,7 @@ namespace CommandLine.Core
 
             var valueSpecProps = ValueMapper.MapValues(
                 (from pt in specProps where pt.Specification.IsValue() select pt),
-                    partitions.Item2,
+                partitions.Item2,
                 (vals, type, isScalar) => TypeConverter.ChangeType(vals, type, isScalar, parsingCulture));
 
             var missingValueErrors = from token in partitions.Item3
