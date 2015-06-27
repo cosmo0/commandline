@@ -33,6 +33,7 @@ namespace CommandLine.Core
                 specification.Min,
                 specification.Max,
                 specification.DefaultValue,
+                specification.DefaulSpecified,
                 specification.ConversionType,
                 specification.HelpText,
                 specification.MetaValue,

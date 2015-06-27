@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="Fakes\FakeOptionsWithNullable.cs" />
     <Compile Include="Fakes\FakeOptionsWithNullDefault.cs" />
+    <Compile Include="Fakes\FakeOptionsWithSequence.cs" />
     <Compile Include="Fakes\FakeOptionsWithSequenceWithMinZero.cs" />
     <Compile Include="Fakes\FakeOptionsWithTwoIntegers.cs" />
     <Compile Include="Fakes\FakeInterfaceOptions.cs" />

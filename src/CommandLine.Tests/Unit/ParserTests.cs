@@ -249,6 +249,21 @@ namespace CommandLine.Tests.Unit
         }
 
         [Fact]
+        public void Parse_check_empty_sequence()
+        {
+            // Fixture setup
+            var sut = new Parser();
+
+            // Exercize system
+            var result = sut.ParseArguments<FakeOptionsWithSequence>(new string[0]);
+
+            // Verify outcome
+            Assert.NotNull(result.Value.IntSequence);
+            Assert.Empty(result.Value.IntSequence);
+            // Teardown
+        }
+
+        [Fact]
         public void Parse_allow_null_default_value()
         {
             // Fixture setup
@@ -259,6 +274,20 @@ namespace CommandLine.Tests.Unit
 
             // Verify outcome
             Assert.Null(result.Value.IntSequence);
+            // Teardown
+        }
+
+        [Fact]
+        public void Parse_reject__sequence_without_values()
+        {
+            // Fixture setup
+            var sut = new Parser();
+
+            // Exercize system
+            var result = sut.ParseArguments<FakeOptionsWithSequence>(new[] { "-i" });
+
+            // Verify outcome
+            Assert.NotEmpty(result.Errors);
             // Teardown
         }
 
