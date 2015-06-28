@@ -22,7 +22,7 @@ namespace CommandLine.Core
                 .ToMaybe()
                     .Map(
                         s => Tuple.Create(
-                            s.ConversionType.ToDescriptor(), (s.Min < 0 && s.Max < 0) ? Maybe.Nothing<int>() : Maybe.Just(s.Max)));
+                            s.ConversionType.ToDescriptor(), (s.Max < 0) ? Maybe.Nothing<int>() : Maybe.Just(s.Max)));
         }
     }
 }

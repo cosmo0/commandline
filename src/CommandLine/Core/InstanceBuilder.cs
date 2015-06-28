@@ -65,12 +65,21 @@ namespace CommandLine.Core
 
             var valueSpecProps = ValueMapper.MapValues(
                 (from pt in specProps where pt.Specification.IsValue() select pt),
-                    partitions.Item2,
+                partitions.Item2,
                 (vals, type, isScalar) => TypeConverter.ChangeType(vals, type, isScalar, parsingCulture));
 
             var missingValueErrors = from token in partitions.Item3
+                                     let optionSpec = optionSpecs.Single(o => token.Text.MatchName(o.ShortName, o.LongName, nameComparer))
+                                     where !(optionSpec.ConversionType.ToDescriptor() == DescriptorType.Sequence && optionSpec.Min == 0)
                                      select new MissingValueOptionError(
                                          NameInfo.FromOptionSpecification(optionSpecs.Single(o => token.Text.MatchName(o.ShortName, o.LongName, nameComparer))));
+
+            var emptyOptionSpecProps = from sp in optionSpecProps.Value
+                                       let o = (OptionSpecification) sp.Specification
+                                       where tokens.Count(token => token.Text.MatchName(o.ShortName, o.LongName, nameComparer)) == 1
+                                           && o.ConversionType.ToDescriptor() == DescriptorType.Sequence
+                                           && o.Min == 0
+                                       select sp;
 
             var specPropsWithValue = optionSpecProps.Value.Concat(valueSpecProps.Value);
 
@@ -78,12 +87,16 @@ namespace CommandLine.Core
                 .SetProperties(specPropsWithValue,
                     sp => sp.Value.IsJust(),
                     sp => sp.Value.FromJust())
+                .SetProperties(emptyOptionSpecProps,
+                    sp => sp.Value.IsNothing(),
+                    sp => sp.Property.PropertyType.GetGenericArguments().Single().CreateEmptyArray())
                 .SetProperties(specPropsWithValue,
                     sp => sp.Value.IsNothing() && sp.Specification.DefaultValue.IsJust(),
                     sp => sp.Specification.DefaultValue.FromJust())
                 .SetProperties(specPropsWithValue,
                     sp => sp.Value.IsNothing()
                         && sp.Specification.ConversionType.ToDescriptor() == DescriptorType.Sequence
+                        && !sp.Specification.DefaulSpecified
                         && sp.Specification.DefaultValue.MatchNothing(),
                     sp => sp.Property.PropertyType.GetGenericArguments().Single().CreateEmptyArray());
 

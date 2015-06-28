@@ -41,6 +41,8 @@ namespace CommandLine.Core
         {
             try
             {
+                conversionType = Nullable.GetUnderlyingType(conversionType) ?? conversionType;
+
                 return Maybe.Just(
                     MatchBoolString(value)
                         ? ConvertBoolString(value)

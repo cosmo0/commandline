@@ -153,16 +153,18 @@ namespace CommandLine
         public object DefaultValue
         {
             get { return this.defaultValue; }
+
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
-
                 this.defaultValue = value;
+                DefaultSpecified = true;
             }
         }
+
+        /// <summary>
+        /// Gets whether <see cref="DefaultValue"/> has actually been set.
+        /// </summary>
+        public bool DefaultSpecified { get; private set; }
 
         /// <summary>
         /// Gets or sets a short description of this command line option. Usually a sentence summary.

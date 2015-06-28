@@ -20,18 +20,20 @@ namespace CommandLine.Core
         private readonly int min;
         private readonly int max;
         private readonly Maybe<object> defaultValue;
+        private readonly bool defaultSpecified;
         /// <summary>
         /// This information is denormalized to decouple Specification from PropertyInfo.
         /// </summary>
         private readonly System.Type conversionType;
 
-        protected Specification(SpecificationType tag, bool required, int min, int max, Maybe<object> defaultValue, System.Type conversionType)
+        protected Specification(SpecificationType tag, bool required, int min, int max, Maybe<object> defaultValue, bool defaultSpecified, System.Type conversionType)
         {
             this.tag = tag;
             this.required = required;
             this.min = min;
             this.max = max;
             this.defaultValue = defaultValue;
+            this.defaultSpecified = defaultSpecified;
             this.conversionType = conversionType;
         }
 
@@ -58,6 +60,11 @@ namespace CommandLine.Core
         public Maybe<object> DefaultValue
         {
             get { return this.defaultValue; }
+        }
+
+        public bool DefaulSpecified
+        {
+            get { return defaultSpecified; }
         }
 
         public System.Type ConversionType
