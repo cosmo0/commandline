@@ -297,7 +297,7 @@ namespace CommandLine.Tests.Unit
         }
 
         [Fact]
-        public void Parse_reject__sequence_without_values()
+        public void Parse_reject_sequence_without_values()
         {
             // Fixture setup
             var sut = new Parser();
@@ -311,7 +311,7 @@ namespace CommandLine.Tests.Unit
         }
 
         [Fact]
-        public void Parse_allow_min_equal_zero()
+        public void Parse_allow_min_equal_zero_empty()
         {
             // Fixture setup
             var sut = new Parser();
@@ -322,6 +322,25 @@ namespace CommandLine.Tests.Unit
             // Verify outcome
             Assert.NotNull(result.Value.IntSequence);
             Assert.Empty(result.Value.IntSequence);
+            // Teardown
+        }
+
+        [Fact]
+        public void Parse_allow_min_equal_zero_nonempty()
+        {
+            // Fixture setup
+            var expectedOptions = new FakeOptionsWithSequence
+            {
+                IntSequence = new[] { 60, 120 }
+            };
+            var sut = new Parser();
+
+            // Exercize system
+            var result = sut.ParseArguments<FakeOptionsWithSequenceWithMinZero>(new[] { "-i", "60", "120" });
+
+            // Verify outcome
+            Assert.Empty(result.Errors);
+            result.Value.ShouldHave().AllProperties().EqualTo(expectedOptions);
             // Teardown
         }
 
